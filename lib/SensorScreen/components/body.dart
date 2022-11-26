@@ -131,14 +131,14 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                       Text(
                         'арваннэгдүгээр 28, 2022',
                         style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w600,
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       Text(
-                        'Өдрийн мэнд,\nЖаргалмаа!',
+                        'Өдрийн мэнд,\nД.Батлут!',
                         style: TextStyle(
-                          color: Colors.black87,
+                          color: kBlueColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 23,
                           fontFamily: 'Poppings',
@@ -149,55 +149,62 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                 ],
               ),
               SizedBox(height: size.height * 0.05),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$temp°',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // crossAxisAlignment: CrossAxisAlignment,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '$temp°',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 105, 102, 102),
+                            ),
                           ),
-                        ),
-                        Text(
-                          'температур',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            fontFamily: 'Poppings',
+                          Text(
+                            'температур',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontFamily: 'Poppings',
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$humi%',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '$humi%',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 105, 102, 102),
+                            ),
                           ),
-                        ),
-                        Text(
-                          'чийгшилийн хувь',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            fontFamily: 'Poppings',
+                          Text(
+                            'чийгшилийн хувь',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.green,
+                              fontFamily: 'Poppings',
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: size.height * 0.05),
               Row(
@@ -222,9 +229,9 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                         size: 55,
                         color: Colors.grey.shade400,
                       ),
-                      title: "Гал тогоо",
-                      statusOn: "ON",
-                      statusOff: "OFF",
+                      title: "Гэрэл удирдлага",
+                      statusOn: "Асаах",
+                      statusOff: "Унтраах",
                     ),
                   ),
                 ],
@@ -236,24 +243,26 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                   CustomCard(
                     size: size,
                     icon: Icon(
-                      Icons.opacity,
+                      //Icons.opacity,
+                      Icons.local_fire_department,
                       size: 55,
                       color: Colors.grey.shade400,
                     ),
-                    title: "Зуух",
+                    title: "Гал зуух",
                     statusOn: "DETECTED",
                     statusOff: "NOT DETECTED",
                   ),
                   CustomCard(
                     size: size,
                     icon: Icon(
-                      Icons.thermostat_outlined,
+                      // Icons.thermostat_outlined,
+                      Icons.opacity_rounded,
                       size: 55,
                       color: Colors.grey.shade400,
                     ),
-                    title: "THERMOSTAT",
-                    statusOn: "ON",
-                    statusOff: "OFF",
+                    title: "Бойлер",
+                    statusOn: "Залгах",
+                    statusOff: "Салгах",
                   ),
                 ],
               ),
@@ -290,11 +299,11 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black54,
+                              color: kOrangeColor,
                             ),
                           ),
                           Text(
-                            "шинэ удирдлага",
+                            "шинэ төхөөрөмж",
                             style: TextStyle(
                               color: Colors.black45,
                               fontWeight: FontWeight.bold,
@@ -306,7 +315,7 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                       Icon(
                         Icons.add,
                         size: 40,
-                        color: Colors.black54,
+                        color: kOrangeColor,
                       ),
                     ],
                   ),

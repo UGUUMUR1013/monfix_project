@@ -49,7 +49,7 @@ class DefaultButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'Next',
+            'Үргэлжлүүлэх',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20,

@@ -26,7 +26,8 @@ class _LandingScreenBodyState extends State<LandingScreenBody> {
           SizedBox(height: size.height * 0.1),
           Center(
             child: Text(
-              'What do you think you\'ll\nmostly use?',
+              'Амар аппликейшн\n"Алсаас гэрээ удирд"',
+              // 'What do you think you\'ll\nmostly use?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -38,7 +39,7 @@ class _LandingScreenBodyState extends State<LandingScreenBody> {
           SizedBox(height: size.height * 0.05),
           Center(
             child: Text(
-              'Tap on all that apply.This will help us\ncustomize your home page.',
+              'Та хэрэгсэлээ сонгон удирдах хэсэг рүү шилжилнэ үү.',
               textAlign: TextAlign.center,
               style: TextStyle(color: kDarkGreyColor, fontSize: 18),
             ),
@@ -49,18 +50,18 @@ class _LandingScreenBodyState extends State<LandingScreenBody> {
             children: [
               ControlButton(
                 size: size,
-                title: 'Maintenance\nRequests',
-                icon: Icons.settings_outlined,
+                title: 'Том өрөө',
+                icon: Icons.home_outlined,
               ),
               ControlButton(
                 size: size,
-                title: 'Integrations\n ',
-                icon: Icons.grain,
+                title: 'WiFi\n ',
+                icon: Icons.wifi_tethering_rounded,
               ),
               ControlButton(
                 size: size,
-                title: 'Light\nControl',
-                icon: Icons.highlight,
+                title: 'Гэрэл\nудиодлага',
+                icon: Icons.lightbulb_outline,
               ),
             ],
           ),
@@ -69,18 +70,18 @@ class _LandingScreenBodyState extends State<LandingScreenBody> {
             children: [
               ControlButton(
                 size: size,
-                title: 'Leak\nDetector',
+                title: 'Бойлуур\nудирдлага',
                 icon: Icons.opacity,
               ),
               ControlButton(
                 size: size,
-                title: 'Temperature\nControl ',
-                icon: Icons.ac_unit,
+                title: 'Гал зуух ',
+                icon: Icons.local_fire_department,
               ),
               ControlButton(
                 size: size,
-                title: 'Guest\nAccess',
-                icon: Icons.vpn_key,
+                title: 'Хүлэмж\n',
+                icon: Icons.cabin_outlined,
               ),
             ],
           ),
