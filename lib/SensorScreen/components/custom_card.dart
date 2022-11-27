@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import '../../constants.dart';
 import 'package:http/http.dart' as http;
+
+import '../../model/Relay.dart';
 
 class CustomCard extends StatefulWidget {
   const CustomCard(
@@ -49,32 +54,71 @@ class _CustomCardState extends State<CustomCard>
     super.initState();
   }
 
-  Future<void> sendSwitchingData({required String type}) async {
-    var response;
-    int tempVar = 0;
-    if (type == 'Гал тогоо') {
-      if (!isChecked) {
-        tempVar = 1;
-      } else {
-        tempVar = 0;
-      }
-      response = await http.get(Uri.parse(
-          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar'));
-    } else if (type == 'THERMOSTAT') {
-      if (!isChecked) {
-        tempVar = 1;
-      } else {
-        tempVar = 0;
-      }
-      response = await http.get(Uri.parse(
-          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field2=$tempVar'));
-    }
-    //print('Lamp: $tempVar Boiler: $boilerOn type: $type');
+  Future<Relay> fetchRelay() async {
+    final response = await http.get(Uri.parse(
+        'https://thingspeak.com/channels/1956752/feeds.json?results=1'));
 
     if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      List<Relay> relList = [];
+      var tempJsonData = jsonDecode(response.body);
+      print('Json: ${tempJsonData['feeds']}');
+      for (int i = 0; i < tempJsonData['feeds'].length; i++) {
+        Relay home = Relay.fromJson(tempJsonData['feeds'][i]);
+        relList.add(home);
+      }
+      print(relList[0].rel1);
+
+      return relList[0];
     } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
       throw Exception('Failed to load album');
     }
+  }
+
+  Future<void> sendSwitchingData({required String type}) async {
+    Response response;
+    Relay relay = await fetchRelay();
+    int tempVar = 0;
+    if (type == 'Гэрэл удирдлага') {
+      if (!isChecked) {
+        tempVar = 1;
+      } else {
+        tempVar = 0;
+      }
+      print('Lamp: $tempVar Boiler: $isChecked type: $type');
+      response = await http.get(Uri.parse(
+          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
+      print(Uri.parse(
+          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
+      while (response.statusCode != 200) {
+        response = await http.get(Uri.parse(
+            'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
+        print(Uri.parse(
+            'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
+        print('body: ${response.statusCode}');
+      }
+    } else if (type == 'Бойлер') {
+      if (!isChecked) {
+        tempVar = 1;
+      } else {
+        tempVar = 0;
+      }
+      response = await http.get(Uri.parse(
+          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=${relay.rel1}&field2=$tempVar'));
+      print(Uri.parse(
+          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=${relay.rel1}&field2=$tempVar'));
+      print('body: ${response.body}');
+    }
+
+    //print('Lamp: $tempVar Boiler: $boilerOn type: $type');
+
+    // if (response.statusCode == 200) {
+    // } else {
+    //   throw Exception('Failed to load album');
+    // }
   }
 
   @override
