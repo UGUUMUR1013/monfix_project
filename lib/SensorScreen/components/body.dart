@@ -136,7 +136,7 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
                         ),
                       ),
                       Text(
-                        'Өдрийн мэнд,\nД.Батлут!',
+                        'Д.Батлут танд энэ\nөдрийн мэнд хүргэе.',
                         style: TextStyle(
                           color: kBlueColor,
                           fontWeight: FontWeight.bold,
