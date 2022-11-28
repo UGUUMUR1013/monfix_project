@@ -1,6 +1,6 @@
 class Relay {
   final String createdAt;
-  final int entryId;
+  final String entryId;
   final String rel1;
   final String rel2;
 

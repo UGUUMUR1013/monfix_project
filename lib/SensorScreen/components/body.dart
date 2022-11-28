@@ -21,7 +21,7 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
 
   @override
   void initState() {
-    loadData();
+    //loadData();
     startTimer();
     super.initState();
   }
@@ -31,15 +31,15 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
     _timer = Timer.periodic(tenSec, (timer) async {
       List<Home> tempHome = await fetchHome();
       setState(() {
-        temp = tempHome[1].temp;
-        humi = tempHome[1].humi;
+        temp = tempHome[0].temp;
+        humi = tempHome[0].humi;
       });
     });
   }
 
   Future<List<Home>> fetchHome() async {
     final response = await http.get(Uri.parse(
-        'https://thingspeak.com/channels/1956546/feeds.json?results=2'));
+        'https://thingspeak.com/channels/1956546/feeds.json?results=1'));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -328,31 +328,31 @@ class _SensorScreenBodyState extends State<SensorScreenBody> {
     );
   }
 
-  Future loadData() async {
-    String jsonString = await getJsonFromFirebaseRestAPI();
-    setState(() {
-      if (jsonString == "\"motion detected\"") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Motion detection status:'),
-            content: const Text('The motion has detected!'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
-    });
-  }
+  // Future loadData() async {
+  //   String jsonString = await getJsonFromFirebaseRestAPI();
+  //   setState(() {
+  //     if (jsonString == "\"motion detected\"") {
+  //       showDialog<String>(
+  //         context: context,
+  //         builder: (BuildContext context) => AlertDialog(
+  //           title: const Text('Motion detection status:'),
+  //           content: const Text('The motion has detected!'),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context, 'OK'),
+  //               child: const Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     }
+  //   });
+  // }
 }
 
-Future<String> getJsonFromFirebaseRestAPI() async {
-  String url =
-      'https://iot-home-security-5265f-default-rtdb.firebaseio.com/status.json';
-  http.Response response = await http.get(Uri.parse(url));
-  return response.body;
-}
+// Future<String> getJsonFromFirebaseRestAPI() async {
+//   String url =
+//       'https://iot-home-security-5265f-default-rtdb.firebaseio.com/status.json';
+//   http.Response response = await http.get(Uri.parse(url));
+//   return response.body;
+// }

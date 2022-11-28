@@ -55,8 +55,11 @@ class _CustomCardState extends State<CustomCard>
   }
 
   Future<Relay> fetchRelay() async {
-    final response = await http.get(Uri.parse(
-        'https://thingspeak.com/channels/1956752/feeds.json?results=1'));
+    final url = Uri.parse(
+        'https://thingspeak.com/channels/1956752/feeds.json?results=1');
+
+    final url1Get = Uri.parse('https://e-erdenet.mn/heater/get.php');
+    final response = await http.get(url1Get);
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -80,36 +83,37 @@ class _CustomCardState extends State<CustomCard>
 
   Future<void> sendSwitchingData({required String type}) async {
     Response response;
+    final url1 = 'https://e-erdenet.mn/heater/index.php?';
+    final url1think =
+        'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU';
+
     Relay relay = await fetchRelay();
     int tempVar = 0;
     if (type == 'Гэрэл удирдлага') {
-      if (!isChecked) {
+      if (isChecked) {
         tempVar = 1;
       } else {
         tempVar = 0;
       }
       print('Lamp: $tempVar Boiler: $isChecked type: $type');
-      response = await http.get(Uri.parse(
-          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
-      print(Uri.parse(
-          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
+      response = await http
+          .get(Uri.parse('$url1&field1=$tempVar&field2=${relay.rel2}'));
+      print(Uri.parse('$url1&field1=$tempVar&field2=${relay.rel2}'));
       while (response.statusCode != 200) {
-        response = await http.get(Uri.parse(
-            'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
-        print(Uri.parse(
-            'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=$tempVar&field2=${relay.rel2}'));
+        response = await http
+            .get(Uri.parse('$url1&field1=$tempVar&field2=${relay.rel2}'));
+        print(Uri.parse('$url1&field1=$tempVar&field2=${relay.rel2}'));
         print('body: ${response.statusCode}');
       }
     } else if (type == 'Бойлер') {
-      if (!isChecked) {
+      if (isChecked) {
         tempVar = 1;
       } else {
         tempVar = 0;
       }
-      response = await http.get(Uri.parse(
-          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=${relay.rel1}&field2=$tempVar'));
-      print(Uri.parse(
-          'https://api.thingspeak.com/update?api_key=AY73H8DOG38DSPNU&field1=${relay.rel1}&field2=$tempVar'));
+      response = await http
+          .get(Uri.parse('$url1&field1=${relay.rel1}&field2=$tempVar'));
+      print(Uri.parse('$url1&field1=${relay.rel1}&field2=$tempVar'));
       print('body: ${response.body}');
     }
 
